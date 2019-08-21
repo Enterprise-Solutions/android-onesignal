@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyOneSignal1</string>
+    <string name="subscripcion_vip">Subscripcion VIP</string>
+    <string name="subscripcion_peliculas">Subscripcion Peliculas</string>
+    <string name="subscripcion_comidas">Subscripcion Comidas</string>
+    <string name="subscripcion_comics">Subscripcion Comics</string>
+    <string name="canales_name">canales name</string>
+</resources>
