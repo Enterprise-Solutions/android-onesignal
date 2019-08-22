@@ -8,6 +8,8 @@ object EndPoints {
 
     val URL_ADD_USUARIOS = URL_ROOT2 + "/apiNotification/AltaUsuario.php"
 
+    val URL_ADD_USUARIOS_CANAL = URL_ROOT+"/firebase/Usuario_x_Canales.php"
+
 
 
     val URL_ADD_CANALES = URL_ROOT + "/firebase/AgregarCanales.php"

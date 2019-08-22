@@ -15,15 +15,14 @@ import java.io.*
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
-import org.json.JSONException
 import com.android.volley.toolbox.StringRequest
-import java.net.HttpURLConnection.HTTP_OK
 import android.os.AsyncTask
 import android.util.Log
 import com.android.volley.*
 import com.android.volley.toolbox.*
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONArray
+import org.json.JSONException
 import javax.net.ssl.HttpsURLConnection
 
 
@@ -54,13 +53,15 @@ class MainActivity : AppCompatActivity() {
         jsonObject.put("usuario", "Prueba")
         jsonObject.put("nombre", "nombre")
         jsonObject.put("apellido", "apellido")
-        jsonObject.put("one_signal", true)
-        jsonObject.put("token_onesignal", token)
+
+        jsonObject.put("token", token)
+        jsonObject.put("origen", 'O')
 
 
 
-
-
+        val json2 = JSONObject()
+        json2.put("usuario_id",1)
+        json2.put( "canal_id",1)
 
 
 
@@ -69,6 +70,9 @@ class MainActivity : AppCompatActivity() {
 
 
         postVolley(EndPoints.URL_ADD_USUARIOS,jsonObject)
+
+
+
 
 
 
@@ -246,20 +250,27 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
+
+
+
+
     fun postVolley(url: String, params: JSONObject) {
 
 
 
 
         val request = JsonObjectRequest(Request.Method.POST,url,params,
-            Response.Listener<JSONObject> { response ->
+            Response.Listener { response ->
                 // Process the json
                 try {
                     Log.e("Response: ",""+response)
-                    Toast.makeText(
-                        applicationContext, "Enviado" + response,
+                    Toast.makeText( applicationContext, "Enviado" + response,
                         Toast.LENGTH_LONG
                     ).show()
+                    val usuarioCanalId = response.getInt("id")
+
                 }catch (e:Exception){
                     Toast.makeText(
                         applicationContext, "Error" + e,
@@ -273,6 +284,8 @@ class MainActivity : AppCompatActivity() {
                 Log.e("Response: ",""+params)
                 Log.e("Exception: ",""+it)
             })
+
+
 
 
 
