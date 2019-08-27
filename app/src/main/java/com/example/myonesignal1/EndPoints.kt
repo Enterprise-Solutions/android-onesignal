@@ -13,4 +13,12 @@ object EndPoints {
 
 
     val URL_ADD_CANALES = URL_ROOT + "/firebase/AgregarCanales.php"
+
+
+    var  USUARIO_ID = 1;
+
+
+    var CANALESDATA: List<Canales> =  emptyList()
+
+
 }

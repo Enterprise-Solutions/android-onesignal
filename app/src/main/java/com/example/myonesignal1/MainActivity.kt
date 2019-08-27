@@ -59,14 +59,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val json2 = JSONObject()
-        json2.put("usuario_id",1)
-        json2.put( "canal_id",1)
-
-
-
-
-
 
 
         postVolley(EndPoints.URL_ADD_USUARIOS,jsonObject)
@@ -144,114 +136,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-//    fun postJSONObject(myurl: String, parameters: JSONObject): String? {
-//        var conn: HttpURLConnection? = null
-//        try {
-//            var response: StringBuffer? = null
-//            val url =  URL(EndPoints.URL_ADD_USUARIOS)
-//            conn = url.openConnection() as HttpURLConnection
-//            conn.readTimeout = 10000
-//            conn.connectTimeout = 15000
-//            conn.setRequestProperty("Content-Type", "application/json")
-//            conn.doOutput = true
-//            conn.requestMethod = "POST"
-//            val out = BufferedOutputStream(conn.outputStream)
-//            val writer = BufferedWriter(OutputStreamWriter(out, "UTF-8"))
-//            writer.write(parameters.toString())
-//            writer.close()
-//            out.close()
-//            val responseCode = conn.responseCode
-//            println("Datos:"+parameters)
-//            println("responseCode$responseCode")
-//            when (responseCode) {
-//                200 -> {
-//                    val `in` = BufferedReader(InputStreamReader(conn.inputStream))
-//                    var inputLine: String
-//                    response = StringBuffer()
-//
-//
-//                    Toast.makeText(this@MainActivity, "Subscripcion Enviada" + parameters, Toast.LENGTH_SHORT).show()
-//                    return response.toString();
-//
-//
-//                }
-//            }
-//        } catch (ex: IOException) {
-//            ex.printStackTrace()
-//            Toast.makeText(this@MainActivity, "Error al enviar la subscripcion", Toast.LENGTH_SHORT).show()
-//        } finally {
-//            if (conn != null) {
-//                try {
-//                    conn.disconnect()
-//                } catch (ex: Exception) {
-//                    ex.printStackTrace()
-//                }
-//
-//            }
-//        }
-//        return null
-//    }
-
-
-    private fun post(data: JSONObject) {
-
-        try {
-
-            val url = URL("http://192.168.1.124/apiNotification/AltaUsuario.php")
-
-
-            val postDataParams = data
-
-
-            Log.e("params", postDataParams.toString())
-
-            val conn = url.openConnection() as HttpURLConnection
-            conn.readTimeout = 15000
-            conn.connectTimeout = 15000
-            conn.requestMethod = "POST"
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Accept", "application/json");
-            conn.doInput = true
-            conn.doOutput = true
-            Toast.makeText(
-                applicationContext, "Enviado" + postDataParams.toString(),
-                Toast.LENGTH_LONG
-            ).show()
-
-            Log.i("JSON", postDataParams.toString());
-            val out = BufferedOutputStream(conn.outputStream)
-            val os = BufferedWriter(OutputStreamWriter(out, "UTF-8"))
-
-
-            os.write(postDataParams.toString());
-
-            os.flush();
-            os.close();
-
-            Log.i("STATUS", "" + (conn.getResponseCode()));
-            Log.i("MSG", conn.getResponseMessage());
-
-
-        } catch (e: Exception) {
-
-            Log.e("Fallo", "")
-            Toast.makeText(
-                applicationContext, e.message,
-                Toast.LENGTH_LONG
-            ).show()
-            e.printStackTrace();
-        }
-
-
-    }
-
-
-
-
-
-
-
-
 
 
 
@@ -269,7 +153,10 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText( applicationContext, "Enviado" + response,
                         Toast.LENGTH_LONG
                     ).show()
-                    val usuarioCanalId = response.getInt("id")
+
+                    EndPoints.USUARIO_ID = response.getInt("id")
+
+
 
                 }catch (e:Exception){
                     Toast.makeText(
