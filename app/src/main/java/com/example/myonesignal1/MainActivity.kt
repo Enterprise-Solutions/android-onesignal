@@ -1,34 +1,22 @@
 package com.example.myonesignal1
 
 import android.content.Intent
-import com.onesignal.OneSignal
-
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
-import com.onesignal.OSSubscriptionObserver
-import com.onesignal.OSPermissionSubscriptionState
-import org.json.JSONObject
-import java.io.*
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
-import com.android.volley.toolbox.StringRequest
-import android.os.AsyncTask
-import android.util.Log
-import com.android.volley.*
-import com.android.volley.toolbox.*
+import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.Request
+import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import org.json.JSONArray
-import org.json.JSONException
-import javax.net.ssl.HttpsURLConnection
-
-
+import com.onesignal.OSSubscriptionObserver
+import com.onesignal.OneSignal
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,13 +49,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        postVolley(EndPoints.URL_ADD_USUARIOS,jsonObject)
-
-
-
-
-
-
+        postVolley(EndPoints.URL_ADD_USUARIOS, jsonObject)
 
 
         val canalesview = findViewById(R.id.buttonViewCanales) as Button
@@ -136,40 +118,34 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
-
-
     fun postVolley(url: String, params: JSONObject) {
 
 
-
-
-        val request = JsonObjectRequest(Request.Method.POST,url,params,
+        val request = JsonObjectRequest(Request.Method.POST, url, params,
             Response.Listener { response ->
                 // Process the json
                 try {
-                    Log.e("Response: ",""+response)
-                    Toast.makeText( applicationContext, "Enviado" + response,
+                    Log.e("Response: ", "" + response)
+                    Toast.makeText(
+                        applicationContext, "Enviado" + response,
                         Toast.LENGTH_LONG
                     ).show()
 
                     EndPoints.USUARIO_ID = response.getInt("id")
 
 
-
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     Toast.makeText(
                         applicationContext, "Error" + e,
                         Toast.LENGTH_LONG
                     ).show()
-                    Log.e("Exception: ",""+e+response)
+                    Log.e("Exception: ", "" + e + response)
                 }
 
-            }, Response.ErrorListener{
+            }, Response.ErrorListener {
                 // Error in request
-                Log.e("Response: ",""+params)
-                Log.e("Exception: ",""+it)
+                Log.e("Response: ", "" + params)
+                Log.e("Exception: ", "" + it)
             })
 
 
@@ -188,7 +164,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    }
+}
 
 
 

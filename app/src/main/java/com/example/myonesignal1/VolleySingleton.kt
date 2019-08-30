@@ -6,13 +6,21 @@ import android.content.Context
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
-
+import com.onesignal.OneSignal
 
 
 class VolleySingleton : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.WARN)
+
+        OneSignal.startInit(this)
+            .setNotificationOpenedHandler(NotificationOpenedHandler())
+            .autoPromptLocation(true)
+            .init()
+
     }
 
     private val requestQueue: RequestQueue by lazy {
@@ -20,6 +28,7 @@ class VolleySingleton : Application() {
         // Activity or BroadcastReceiver if someone passes one in.
         Volley.newRequestQueue(applicationContext)
     }
+
     fun <T> addToRequestQueue(req: Request<T>) {
         requestQueue.add(req)
     }
@@ -39,7 +48,8 @@ class VolleySingleton : Application() {
 
     companion object {
         private val TAG = VolleySingleton::class.java.simpleName
-        @get:Synchronized var instance: VolleySingleton? = null
+        @get:Synchronized
+        var instance: VolleySingleton? = null
             private set
     }
 }
